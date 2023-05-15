@@ -15,17 +15,19 @@ let squares = [];
 let triangles = [];
 let pentagons = [];
 let hexagons = [];
-let lines = [];
+let lenses = [];
 
 function preload() {
-  for (let i = 0; i < 185; i++) {
+  let filename = `data${useMore ? "750" : "500"}_warp${higherPercentage ? "50" : "25"}percent`;
+
+  for (let i = 0; i < (useMore ? 750 : 500); i++) {
     let index = nf(i + 1, 4, 0);
-    circles[i] = loadImage(`data/circle${index}.png`);
-    squares[i] = loadImage(`data/square${index}.png`);
-    triangles[i] = loadImage(`data/triangle${index}.png`);
-    pentagons[i] = loadImage(`data/pentagon${index}.png`);
-    hexagons[i] = loadImage(`data/hexagon${index}.png`);
-    lines[i] = loadImage(`data/line${index}.png`);
+    circles[i] = loadImage(`data/${filename}/circle${index}.png`);
+    squares[i] = loadImage(`data/${filename}/square${index}.png`);
+    triangles[i] = loadImage(`data/${filename}/triangle${index}.png`);
+    pentagons[i] = loadImage(`data/${filename}/pentagon${index}.png`);
+    hexagons[i] = loadImage(`data/${filename}/hexagon${index}.png`);
+    lenses[i] = loadImage(`data/${filename}/lens${index}.png`);
   }
 }
 
@@ -49,7 +51,7 @@ function setup() {
     shapeClassifier.addData({ image: triangles[i] }, { label: 'triangle' });
     shapeClassifier.addData({ image: pentagons[i] }, { label: 'pentagon' });
     shapeClassifier.addData({ image: hexagons[i] }, { label: 'hexagon' });
-    shapeClassifier.addData({ image: lines[i] }, { label: 'line' });
+    shapeClassifier.addData({ image: lenses[i] }, { label: 'lens' });
   }
   shapeClassifier.normalizeData();
   shapeClassifier.train({ epochs: 90 }, finishedTraining);
