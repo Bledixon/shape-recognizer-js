@@ -17,10 +17,13 @@ let pentagons = [];
 let hexagons = [];
 let lenses = [];
 
+let useMore = false;
+let higherPercentage = false;
+
 function preload() {
   let filename = `data${useMore ? "750" : "500"}_warp${higherPercentage ? "50" : "25"}percent`;
 
-  for (let i = 0; i < (useMore ? 750 : 500); i++) {
+  for (let i = 0; i < (useMore ? 750 : 100/*500*/); i++) {
     let index = nf(i + 1, 4, 0);
     circles[i] = loadImage(`data/${filename}/circle${index}.png`);
     squares[i] = loadImage(`data/${filename}/square${index}.png`);
