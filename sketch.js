@@ -11,9 +11,12 @@ let hexagons = [];
 let lenses = [];
 
 // Currently available: 750 | 500
-let samples = "100";
+let samples = "500";
 // Currently available: 25 | 50
-let percentage = "50";
+let percentage = "25";
+
+let numClasses = 6;
+let epochs = 35;
 
 function preload() {
   let filename = `data${samples}_warp${percentage}percent`;
@@ -39,8 +42,40 @@ function setup() {
   let options = {
     inputs: [64, 64, 4],
     task: 'imageClassification',
-    debug: true
+    debug: true,
+    layers: [
+      { // Add convolutional layers
+        type: 'conv2d',
+        filters: 16,
+        kernelSize: 3,
+        activation: 'relu'
+      },
+      {
+        type: 'conv2d',
+        filters: 32,
+        kernelSize: 3,
+        activation: 'relu'
+      },
+      { // Add pooling layers
+        type: 'maxPooling2d',
+        poolSize: 2
+      },
+      { // Flatten the output for fully connected layers
+        type: 'flatten'
+      },
+      { // Add fully connected layers
+        type: 'dense',
+        units: 64,
+        activation: 'relu'
+      },
+      { // Output layer with the number of classes
+        type: 'dense',
+        units: numClasses, 
+        activation: 'softmax'
+      },
+    ]
   };
+
   shapeClassifier = ml5.neuralNetwork(options);
 
   for (let i = 0; i < circles.length; i++) {
@@ -52,7 +87,7 @@ function setup() {
     shapeClassifier.addData({ image: lenses[i] }, { label: 'lens' });
   }
   shapeClassifier.normalizeData();
-  shapeClassifier.train({ epochs: 90 }, finishedTraining);
+  shapeClassifier.train({ epochs: epochs }, finishedTraining);
 }
 
 function finishedTraining() {
