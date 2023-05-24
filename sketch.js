@@ -10,10 +10,10 @@ let pentagons = [];
 let hexagons = [];
 let lenses = [];
 
-// Currently available: 750 | 500
-let samples = "500";
+// Currently available: 100 | 750 | 500
+let samples = "100";
 // Currently available: 25 | 50
-let percentage = "25";
+let percentage = "50";
 
 let numClasses = 6;
 let epochs = 35;
