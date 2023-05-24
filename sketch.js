@@ -11,9 +11,9 @@ let hexagons = [];
 let lenses = [];
 
 // Currently available: 750 | 500
-let samples = "500";
+let samples = "100";
 // Currently available: 25 | 50
-let percentage = "25";
+let percentage = "50";
 
 function preload() {
   let filename = `data${samples}_warp${percentage}percent`;
